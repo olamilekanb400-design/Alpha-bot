@@ -1,40 +1,39 @@
+// BOT NAME
+title: 'ALPHA BOT',
+packname: 'ALPHA BOT',
 
-// © 2026 ZEE BOT | Powered by CRYSNOVA AI V2 Technology
-// Config reads from .env (primary) → getVar runtime (secondary) → defaults
-//
+description: 'Professional WhatsApp Bot — ALPHA BOT',
+author: 'ALPHA BOT',
+footer: '© ALPHA BOT',
 
-const fs   = require('fs');
-const path = require('path');
-const { getVar } = require('../src/Plugin/configManager');
+ownerName:
+    process.env.OWNER_NAME ||
+    getVar('OWNER_NAME') ||
+    userConfig?.owner?.name ||
+    'ALPHA OWNER',
 
-const parseBoolean = (value, fallback) => {
-    if (value === undefined || value === null || value === '') return fallback;
-    if (typeof value === 'boolean') return value;
-    if (typeof value === 'number') return value !== 0;
-    const normalized = String(value).trim().toLowerCase();
-    if (['true', '1', 'yes', 'on'].includes(normalized)) return true;
-    if (['false', '0', 'no', 'off'].includes(normalized)) return false;
-    return fallback;
-};
+// NEWSLETTER
+newsletter: {
+    name:
+        process.env.BOT_NAME ||
+        getVar('BOT_NAME') ||
+        'ALPHA BOT',
 
-const getBoolean = (key, userValue, fallback) => {
-    const envValue = process.env[key];
-    if (envValue !== undefined) return parseBoolean(envValue, fallback);
-    const runtimeValue = getVar(key, undefined);
-    if (runtimeValue !== undefined && runtimeValue !== null) return parseBoolean(runtimeValue, fallback);
-    return parseBoolean(userValue, fallback);
-};
+    id: '120363402922206865@newsletter'
+},
 
-/*
-──────────────────────────────────────────
-Load User Config (optional JSON override)
-──────────────────────────────────────────
-*/
-const USER_CONFIG_PATH = path.join(__dirname, '../database/user-config.json');
-let userConfig = {};
-try {
-    if (fs.existsSync(USER_CONFIG_PATH)) {
-        userConfig = JSON.parse(fs.readFileSync(USER_CONFIG_PATH, 'utf8'));
+// BRANDING
+branding: {
+    footer: '© ALPHA BOT',
+    channel: 'YOUR_CHANNEL_LINK',
+    group: process.env.GROUP_LINK || 'YOUR_GROUP_LINK',
+    repo: 'YOUR_REPOSITORY_LINK'
+},
+
+And in your ".env", set:
+
+BOT_NAME=ALPHA BOT
+OWNER_NAME=ALPHA OWNER        userConfig = JSON.parse(fs.readFileSync(USER_CONFIG_PATH, 'utf8'));
     }
 } catch {}
 
